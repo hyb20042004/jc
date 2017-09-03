@@ -77,6 +77,7 @@ public class pzckServlet extends HttpServlet {
 			bs.setUsername(DB_NAME);
 			bs.setPassword(DB_PASS);
 			conn=bs.getConnection();
+			//1。查询库存表与出库表
 			psmt=conn.prepareStatement("selecpt pz_hde from pz_kc where pz_hd=?");
 			psmt.setLong(1, pz_hd1);
 			//psmt.setInt(2, pzzl);
@@ -89,32 +90,34 @@ public class pzckServlet extends HttpServlet {
 			psmt.setLong(2, pz_hd2);
 			Boolean result1=psmt.execute();
 			System.out.println("1，数凭证库存查询完毕！");
+			//2、添加凭证出库数据表
 			conn.setAutoCommit(false);
 			if(!result1) {
-			psmt=conn.prepareStatement("insert into pz_ck(pz_num,pz_hd,pz_count,lqr,zy,cksj,pz_hde,batch) values(?,?,?,?,?,?,?,?)");
-			psmt.setInt(1, pzzl);
-			psmt.setLong(2, pz_hd1);
-			psmt.setInt(3, pz_count);
-			psmt.setString(4, lqr);
-			psmt.setString(5, zy);
-			psmt.setString(6, cksj);
-			//psmt.setInt(7,lqjg);
-			psmt.setLong(7, pz_hd2);
-			
-			int row = psmt.executeUpdate();
-			if(row>0)
-			System.out.println("2，添加凭证出库数据表完成！");
-			psmt=conn.prepareStatement("update pz_kc set pz_hd=?,cksj=? where pz_hd=?");
-			if(name>pz_hd2) {
-			psmt.setLong(1, pz_hd2+1);
-			}else {
-				psmt.setLong(1, pz_hd2);
-			}
-			psmt.setString(2,cksj);
-			psmt.setLong(3, pz_hd1);
-			int row2=psmt.executeUpdate();
-			 if(row2>0)
-				System.out.println("3.更新凭证库存表完成！！");
+				psmt=conn.prepareStatement("insert into pz_ck(pz_num,pz_hd,pz_count,lqr,zy,cksj,pz_hde,batch) values(?,?,?,?,?,?,?,?)");
+				psmt.setInt(1, pzzl);
+				psmt.setLong(2, pz_hd1);
+				psmt.setInt(3, pz_count);
+				psmt.setString(4, lqr);
+				psmt.setString(5, zy);
+				psmt.setString(6, cksj);
+				//psmt.setInt(7,lqjg);
+				psmt.setLong(7, pz_hd2);
+				
+				int row = psmt.executeUpdate();
+				if(row>0)
+				System.out.println("2，添加凭证出库数据表完成！");
+				//3.更新凭证库存表
+				psmt=conn.prepareStatement("update pz_kc set pz_hd=?,cksj=? where pz_hd=?");
+				if(name>pz_hd2) {
+				psmt.setLong(1, pz_hd2+1);
+				}else {
+					psmt.setLong(1, pz_hd2);
+				}
+				psmt.setString(2,cksj);
+				psmt.setLong(3, pz_hd1);
+				int row2=psmt.executeUpdate();
+				 if(row2>0)
+					System.out.println("3.更新凭证库存表完成！！");
 			}else {
 				System.out.println("凭证出库表中存在记录！");
 				response.sendRedirect("pzck.jsp");
