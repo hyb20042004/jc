@@ -6,6 +6,8 @@ import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -49,21 +51,37 @@ public class pzrkServlet extends HttpServlet {
 	 
 		Connection conn=null;
 		PreparedStatement psmt=null;
-		Integer pz_num=Integer.parseInt(request.getParameter("pzzl"));
-		Long pz_hd1=Long.parseLong(request.getParameter("pzhd1"));
-		Long pz_hd2=Long.parseLong(request.getParameter("pzhd2"));
-		Integer pz_count=((int)(pz_hd2-pz_hd1))+1;
-		String time=request.getParameter("rksj");
-		
+		 Long hd1[]=new Long[20];
+	        Long hd2[]=new Long[20];
+	        int[] num=new int[20];
+	    request.setCharacterEncoding("utf-8");
+		String[] pzzl=request.getParameterValues("pzzl");
+		String[] pz_hd1=request.getParameterValues("pzhd1");
+		String[] pz_hd2=request.getParameterValues("pzhd2");
+		//Integer pz_count=((int)(pz_hd2-pz_hd1))+1;
+		String jbr=request.getParameter("jbr");
+		String zy=request.getParameter("zy");
+		java.util.Date date=new java.util.Date();
+		DateFormat time=new SimpleDateFormat("yyyy年MM月dd日");
+		String rksj=time.format(date);
 		try {
 			Class.forName(DB_DRIVER);
 			conn=DriverManager.getConnection(DB_URL, DB_NAME, DB_PASS);
-			psmt=conn.prepareStatement("insert into pz_kc(pz_num,pz_hd,rksj,pz_hde) values(?,?,?,?,?)");
-			psmt.setInt(1,pz_num);
-			psmt.setLong(2,pz_hd1);
-			psmt.setString(3, time);
-			psmt.setLong(4,pz_hd2);
-			int row=psmt.executeUpdate();
+			psmt=conn.prepareStatement("insert into pz_kc(pz_num,pz_hd,rksj,pz_hde,zy,jbr) values(?,?,?,?,?,?)");
+			for(int i=1;i<pzzl.length;i++) {
+				num[i]=Integer.valueOf(pzzl[i]);
+				hd1[i]=Long.valueOf(pz_hd1[i]);
+				hd2[i]=Long.valueOf(pz_hd2[i]);
+			psmt.setInt(1,num[i]);
+			psmt.setLong(2,hd1[i]);
+			psmt.setString(3,rksj);
+			psmt.setLong(4,hd2[i]);
+			psmt.setString(5,zy);
+			psmt.setString(6,jbr);
+			psmt.addBatch();
+			}
+			int[] rows=psmt.executeBatch();
+			int row=rows.length;
 			if(row>0) {
 				
 				System.out.println("添加"+row+"调数据！");

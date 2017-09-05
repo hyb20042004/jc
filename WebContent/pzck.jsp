@@ -1,9 +1,9 @@
-<%@ page contentType="text/html; charset=gb2312" language="java" import="java.sql.*" errorPage="" %>
+<%@ page contentType="text/html; charset=utf-8" language="java" import="java.sql.*" errorPage="" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
-<title>ÎŞ±êÌâÎÄµµ</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>æ— æ ‡é¢˜æ–‡æ¡£</title>
 <style type="text/css">
 <!--
 .STYLE1 {
@@ -19,16 +19,16 @@
 <script language="javascript" src="js/jquery1.7.js"></script>
 <script language="javascript">
 $(function () {
-	var show_count = 20;   //ÒªÏÔÊ¾µÄÌõÊı
-	var count = 1;    //µİÔöµÄ¿ªÊ¼Öµ£¬ÕâÀïÊÇÄãµÄID
+	var show_count = 20;   //è¦æ˜¾ç¤ºçš„æ¡æ•°
+	var count = 1;    //é€’å¢çš„å¼€å§‹å€¼ï¼Œè¿™é‡Œæ˜¯ä½ çš„ID
 	$("#btn_addtr").click(function () {
 
 		var length = $("#dynamicTable tbody tr").length;
 		//alert(length);
-		if (length < show_count)    //µã»÷Ê±ºò£¬Èç¹ûµ±Ç°µÄÊı×ÖĞ¡ÓÚµİÔö½áÊøµÄÌõ¼ş
+		if (length < show_count)    //ç‚¹å‡»æ—¶å€™ï¼Œå¦‚æœå½“å‰çš„æ•°å­—å°äºé€’å¢ç»“æŸçš„æ¡ä»¶
 		{
-			$("#tab11 tbody tr").clone().appendTo("#dynamicTable tbody");   //ÔÚ±í¸ñºóÃæÌí¼ÓÒ»ĞĞ
-			changeIndex();//¸üĞÂĞĞºÅ
+			$("#tab11 tbody tr").clone().appendTo("#dynamicTable tbody");   //åœ¨è¡¨æ ¼åé¢æ·»åŠ ä¸€è¡Œ
+			changeIndex();//æ›´æ–°è¡Œå·
 		}
 	});
 
@@ -36,8 +36,8 @@ $(function () {
 });
 function changeIndex() {
 	var i = 1;
-	$("#dynamicTable tbody tr").each(function () { //Ñ­»·tab tbodyÏÂµÄtr
-		$(this).find("input[name='NO']").val(i++);//¸üĞÂĞĞºÅ
+	$("#dynamicTable tbody tr").each(function () { //å¾ªç¯tab tbodyä¸‹çš„tr
+		$(this).find("input[name='NO']").val(i++);//æ›´æ–°è¡Œå·
 	});
 }
 
@@ -45,9 +45,9 @@ function deltr(opp) {
 	var length = $("#dynamicTable tbody tr").length;
 	//alert(length);
 	if (length <= 1) {
-		alert("ÖÁÉÙ±£ÁôÒ»ĞĞ");
+		alert("è‡³å°‘ä¿ç•™ä¸€è¡Œ");
 	} else {
-		$(opp).parent().parent().remove();//ÒÆ³ıµ±Ç°ĞĞ
+		$(opp).parent().parent().remove();//ç§»é™¤å½“å‰è¡Œ
 		changeIndex();
 	}
 }
@@ -56,15 +56,15 @@ function deltr(opp) {
 </head>
 
 <body>
-<form action="print.jsp" method="post">
+<form action="pzckServlet" method="post">
 <table width="50%" border="1" align="center" cellpadding="2" cellspacing="2">
   <tr>
-    <td height="32" colspan="3" align="center"><span class="STYLE1">Æ¾Ö¤³ö¿â</span></td>
+    <td height="32" colspan="3" align="center"><span class="STYLE1">å‡­è¯å‡ºåº“</span></td>
   </tr>
   <tr>
     <td width="31" height="88" rowspan="2" align="center" valign="middle">
-      Æ¾Ö¤<br />
-      Â¼Èë<br />          </td>
+      å‡­è¯<br />
+      å½•å…¥<br />          </td>
     <td width="497" height="66" colspan="2" align="center" valign="top">
 	<table id="tab11" style="display: none" width="100%">
 		<tbody>
@@ -73,15 +73,15 @@ function deltr(opp) {
 					<input type="text" name="NO" size="2" value="1" /></td>
 				<td align="center">
 					<select name="pzzl" id="pzzl">
-            <option value="101-´æÕÛ" selected="selected">´æÕÛ</option>
-            <option value="102-½ğÅ£¿¨">½ğÅ£¿¨</option>
+            <option value="101-å­˜æŠ˜" selected="selected">å­˜æŠ˜</option>
+            <option value="102-é‡‘ç‰›å¡">é‡‘ç‰›å¡</option>
           </select></td>
 				<td align="center">
-					<input type="text" name="pzhd1" /></td>
+					<input type="text" name="pzhd1"/></td>
 				<td align="center">
-					<input type="text" name="pzhd2" /></td>
+					<input type="text" name="pzhd2"/></td>
 				<td>
-					<input type="button" id="Button1" onClick="deltr(this)" value="É¾ĞĞ">				</td>
+					<input type="button" id="Button1" onClick="deltr(this)" value="åˆ è¡Œ">				</td>
 			</tr>
 		</tbody>
 	</table>
@@ -90,10 +90,10 @@ function deltr(opp) {
 		<thead>
 			<tr>
 				<td height="30" align="center" bgcolor="#CCCCCC">ID</td>
-				<td align="center" bgcolor="#CCCCCC">Æ¾Ö¤ÖÖÀà</td>
-				<td align="center" bgcolor="#CCCCCC">Æ¾Ö¤Ê×ºÅ</td>
-				<td align="center" bgcolor="#CCCCCC">Æ¾Ö¤Î²ºÅ</td>
-				<td align="center" bgcolor="#CCCCCC">²Ù×÷</td>
+				<td align="center" bgcolor="#CCCCCC">å‡­è¯ç§ç±»</td>
+				<td align="center" bgcolor="#CCCCCC">å‡­è¯é¦–å·</td>
+				<td align="center" bgcolor="#CCCCCC">å‡­è¯å°¾å·</td>
+				<td align="center" bgcolor="#CCCCCC">æ“ä½œ</td>
 			</tr>
 		</thead>
 		<tbody>
@@ -102,40 +102,40 @@ function deltr(opp) {
 					<input type="text" name="NO" size="2" value="1" /></td>
 				<td align="center">
 					<select name="pzzl" id="pzzl">
-            <option value="101-´æÕÛ" selected="selected">´æÕÛ</option>
-            <option value="102-½ğÅ£¿¨">½ğÅ£¿¨</option>
+            <option value="101-å­˜æŠ˜" selected="selected">å­˜æŠ˜</option>
+            <option value="102-é‡‘ç‰›å¡">é‡‘ç‰›å¡</option>
           </select></td>
 				<td align="center">
 					<input type="text" name="pzhd1" /></td>
 				<td align="center">
 					<input type="text" name="pzhd2" /></td>
 				<td>
-					<input type="button" id="Button2" onClick="deltr(this)" value="É¾ĞĞ">				</td>
+					<input type="button" id="Button2" onClick="deltr(this)" value="åˆ è¡Œ">				</td>
 			</tr>
 		</tbody>
 	</table></td>
     </tr>
   
   <tr>
-    <td height="27" colspan="2" align="center"><input type="button" id="btn_addtr" value="Ôö¼ÓÆ¾Ö¤"></td>
+    <td height="27" colspan="2" align="center"><input type="button" id="btn_addtr" value="å¢åŠ å‡­è¯"></td>
   </tr>
   <tr>
     <td height="89" width="31" align="center" valign="middle">
-      ĞÅÏ¢<br />
-      Â¼Èë</td>
+      ä¿¡æ¯<br />
+      å½•å…¥</td>
     <td height="89" colspan="2" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
         <thead>
           <tr>
-            <td height="30" align="center" bgcolor="#CCCCCC">ÁìÈ¡»ú¹¹</td>
-            <td align="center" bgcolor="#CCCCCC">ÁìÈ¡ÈË</td>
-            <td align="center" bgcolor="#CCCCCC">ÕªÒª</td>
+            <td height="30" align="center" bgcolor="#CCCCCC">é¢†å–æœºæ„</td>
+            <td align="center" bgcolor="#CCCCCC">é¢†å–äºº</td>
+            <td align="center" bgcolor="#CCCCCC">æ‘˜è¦</td>
             </tr>
         </thead>
         <tbody>
           <tr>
             <td height="30" align="center"><select name="lqjg" id="lqjg">
-              <option value="ÓªÒµ²¿">77003¡ªÓªÒµ²¿</option>
-              <option value="¸ßÍ·Ò¤ĞÅÓÃÉç">77014¡ª¸ßÍ·Ò¤ĞÅÓÃÉç</option>
+              <option value="è¥ä¸šéƒ¨">77003â€”è¥ä¸šéƒ¨</option>
+              <option value="é«˜å¤´çª‘ä¿¡ç”¨ç¤¾">77014â€”é«˜å¤´çª‘ä¿¡ç”¨ç¤¾</option>
             </select></td>
             <td align="center"><input name="lqr" type="text" id="lqr" /></td>
             <td align="center"><input name="zy" type="text" id="zy" /></td>
@@ -146,8 +146,8 @@ function deltr(opp) {
   </tr>
   <tr>
     <td colspan="3" align="center"><label>
-      <input type="submit" name="Submit" value="Ìá½»" />
-      <input type="reset" name="Submit2" value="ÖØÖÃ" />
+      <input type="submit" name="Submit" value="æäº¤" />
+      <input type="reset" name="Submit2" value="é‡ç½®" />
     </label></td>
   </tr>
 </table>
