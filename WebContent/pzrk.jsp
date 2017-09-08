@@ -14,6 +14,10 @@
 	margin-left: auto;
 	margin-right: auto;
 }
+.STYLE2 {
+	color: #FFFFFF;
+	font-weight: bold;
+}
 -->
 </style>
 <script language="javascript" src="js/jquery1.7.js"></script>
@@ -57,7 +61,7 @@ function deltr(opp) {
 
 <body>
 <form action="pzrkServlet" method="post">
-<table width="50%" border="1" align="center" cellpadding="2" cellspacing="2">
+<table width="100%" border="1" align="center" cellpadding="2" cellspacing="2">
   <tr>
     <td height="32" colspan="3" align="center"><span class="STYLE1">凭证入库</span></td>
   </tr>
@@ -65,7 +69,7 @@ function deltr(opp) {
     <td width="31" height="88" rowspan="2" align="center" valign="middle">
       凭证<br />
       录入<br />          </td>
-    <td width="497" height="66" colspan="2" align="center" valign="top">
+    <td height="66" colspan="2" align="center" valign="top">
 	<table id="tab11" style="display: none" width="100%">
 		<tbody>
 			<tr>
@@ -89,11 +93,11 @@ function deltr(opp) {
 	<table id="dynamicTable" width="100%" border="0" cellspacing="0" cellpadding="0">
 		<thead>
 			<tr>
-				<td height="30" align="center" bgcolor="#CCCCCC">ID</td>
-				<td align="center" bgcolor="#CCCCCC">凭证种类</td>
-				<td align="center" bgcolor="#CCCCCC">凭证首号</td>
-				<td align="center" bgcolor="#CCCCCC">凭证尾号</td>
-				<td align="center" bgcolor="#CCCCCC">操作</td>
+				<td height="30" align="center" bgcolor="#00923F"><span class="STYLE2">ID</span></td>
+				<td align="center" bgcolor="#00923F"><span class="STYLE2">凭证种类</span></td>
+				<td align="center" bgcolor="#00923F"><span class="STYLE2">凭证首号</span></td>
+				<td align="center" bgcolor="#00923F"><span class="STYLE2">凭证尾号</span></td>
+				<td align="center" bgcolor="#00923F"><span class="STYLE2">操作</span></td>
 			</tr>
 		</thead>
 		<tbody>
@@ -117,7 +121,8 @@ function deltr(opp) {
     </tr>
   
   <tr>
-    <td height="27" colspan="2" align="center"><input type="button" id="btn_addtr" value="增加凭证"></td>
+    <td width="553" height="27" align="center">&nbsp;</td>
+    <td width="84" height="27" align="center"><input name="button" type="button" id="btn_addtr" value="增加凭证" /></td>
   </tr>
   <tr>
     <td height="89" width="31" align="center" valign="middle">
@@ -126,8 +131,8 @@ function deltr(opp) {
     <td height="89" colspan="2" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
         <thead>
           <tr>
-            <td height="30" align="center" bgcolor="#CCCCCC">经办人</td>
-            <td align="center" bgcolor="#CCCCCC">摘要</td>
+            <td height="30" align="center" bgcolor="#00923F"><span class="STYLE2">经办人</span></td>
+            <td align="center" bgcolor="#00923F"><span class="STYLE2">摘要</span></td>
             </tr>
         </thead>
         <tbody>
@@ -139,8 +144,7 @@ function deltr(opp) {
             <td align="center"><input name="zy" type="text" id="zy" size="40" /></td>
             </tr>
         </tbody>
-      </table>      
-     </td>
+      </table>     </td>
   </tr>
   <tr>
     <td colspan="3" align="center"><label>

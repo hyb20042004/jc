@@ -84,7 +84,7 @@ public class pzckServlet extends HttpServlet {
 			bs.setPassword(DB_PASS);
 			conn=bs.getConnection();
 			/*//1。查询库存表与出库表
-			psmt=conn.prepareStatement("selecpt pz_hde from pz_kc where pz_hd=?");
+			psmt=conn.prepareStatement("select pz_hde from pz_kc where pz_hd=?");
 			psmt.setLong(1, pz_hd1);
 			//psmt.setInt(2, pzzl);
 			ResultSet result=psmt.executeQuery();
@@ -119,7 +119,7 @@ public class pzckServlet extends HttpServlet {
 				if(row>0)
 				System.out.println("2，添加凭证出库数据表完成！");
 				//3.更新凭证库存表
-				psmt=conn.prepareStatement("update pz_kc set pz_hd=?,cksj=? where pz_hd=?");
+				psmt=conn.prepareStatement("update pz_kc set pz_hd=? where pz_hd=?");
 				for(int i=1;i<pzzl.length;i++) {
 					hd1[i]=Long.valueOf(pz_hd1[i]);
 					hd2[i]=Long.valueOf(pz_hd2[i]);
@@ -129,8 +129,7 @@ public class pzckServlet extends HttpServlet {
 					psmt.setLong(1, pz_hd2);
 				}*/
 				psmt.setLong(1, hd2[i]+1);	
-				psmt.setString(2,cksj);
-				psmt.setLong(3, hd1[i]);
+				psmt.setLong(2, hd1[i]);
 				psmt.addBatch();
 				}
 				int[] rows2=psmt.executeBatch();

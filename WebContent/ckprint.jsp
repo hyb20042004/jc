@@ -47,16 +47,6 @@ String zy=request.getParameter("zy");
 Date date=new Date();
 DateFormat time=new SimpleDateFormat("yyyy年MM月dd日");
 String datenow=time.format(date);
-
-//保存各类参数准备传输参数
-/* session.setAttribute("pzzl", pzzl);
-session.setAttribute("pzhd1", pzhd1);
-session.setAttribute("pzhd2", pzhd2);
-session.setAttribute("lqjg", lqjg);
-session.setAttribute("lqr",lqr);
-session.setAttribute("zy",zy);
-session.setAttribute("cksj",datenow); */
-
 %>
 <table width="100%" border="0">
   <tr>
