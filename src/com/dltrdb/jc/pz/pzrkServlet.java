@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import sun.reflect.generics.tree.BottomSignature;
+
 
 /**
  * Servlet implementation class pzrkServlet
@@ -63,11 +65,14 @@ public class pzrkServlet extends HttpServlet {
 		String zy=request.getParameter("zy");
 		java.util.Date date=new java.util.Date();
 		DateFormat time=new SimpleDateFormat("yyyy年MM月dd日");
+		DateFormat time1=new SimpleDateFormat("yyyyMMddHHmmss");
 		String rksj=time.format(date);
+		String tag=time1.format(date);
 		try {
 			Class.forName(DB_DRIVER);
 			conn=DriverManager.getConnection(DB_URL, DB_NAME, DB_PASS);
-			psmt=conn.prepareStatement("insert into pz_kc(pz_num,pz_hd,rksj,pz_hde,zy,jbr) values(?,?,?,?,?,?)");
+			conn.setAutoCommit(false);
+			psmt=conn.prepareStatement("insert into pz_kc(pz_num,pz_hd,rksj,pz_hde,zy,jbr,tag) values(?,?,?,?,?,?,?)");
 			for(int i=1;i<pzzl.length;i++) {
 				num[i]=Integer.valueOf(pzzl[i]);
 				hd1[i]=Long.valueOf(pz_hd1[i]);
@@ -78,13 +83,21 @@ public class pzrkServlet extends HttpServlet {
 			psmt.setLong(4,hd2[i]);
 			psmt.setString(5,zy);
 			psmt.setString(6,jbr);
+			psmt.setString(7,tag);
 			psmt.addBatch();
 			}
 			int[] rows=psmt.executeBatch();
 			int row=rows.length;
 			if(row>0) {
-				
 				System.out.println("添加"+row+"调数据！");
+				psmt=conn.prepareStatement("insert into pz_print(name,pz_tag) values(?,?)");
+				psmt.setString(1, tag);
+				psmt.setInt(2, 0);
+				boolean row1=psmt.execute();
+				if(row1) {
+					System.out.println("添加凭证待打印表成功");
+				}
+				 conn.commit();
 				response.sendRedirect("pzrk.jsp");
 			}else {
 				System.out.println("SQL执行异常");
@@ -95,6 +108,12 @@ public class pzrkServlet extends HttpServlet {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			try {
+				conn.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			e.printStackTrace();
 		}finally{
 			try {

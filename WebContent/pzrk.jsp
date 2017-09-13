@@ -6,10 +6,6 @@
 <title>无标题文档</title>
 <style type="text/css">
 <!--
-.STYLE1 {
-	font-size: 24px;
-	font-weight: bold;
-}
 .tr {
 	margin-left: auto;
 	margin-right: auto;
@@ -61,14 +57,12 @@ function deltr(opp) {
 
 <body>
 <form action="pzrkServlet" method="post">
-<table width="100%" border="1" align="center" cellpadding="2" cellspacing="2">
+<table width="100%" border="1" align="center" cellpadding="1" cellspacing="1" bordercolor="#00923F">
   <tr>
-    <td height="32" colspan="3" align="center"><span class="STYLE1">凭证入库</span></td>
-  </tr>
-  <tr>
-    <td width="31" height="88" rowspan="2" align="center" valign="middle">
+    <td width="31" height="88" rowspan="2" align="center" valign="middle"><strong>
       凭证<br />
-      录入<br />          </td>
+      录入<br />          
+      </strong></td>
     <td height="66" colspan="2" align="center" valign="top">
 	<table id="tab11" style="display: none" width="100%">
 		<tbody>
@@ -76,10 +70,7 @@ function deltr(opp) {
 				<td height="30" align="center">
 					<input type="text" name="NO" size="2" value="1" /></td>
 				<td align="center">
-					<select name="pzzl" id="pzzl">
-            <option value="101" selected="selected">存折</option>
-            <option value="102">金牛卡</option>
-          </select></td>
+					<select name="pzzl" class="pzzl"></select></td>
 				<td align="center">
 					<input type="text" name="pzhd1"/></td>
 				<td align="center">
@@ -94,9 +85,9 @@ function deltr(opp) {
 		<thead>
 			<tr>
 				<td height="30" align="center" bgcolor="#00923F"><span class="STYLE2">ID</span></td>
-				<td align="center" bgcolor="#00923F"><span class="STYLE2">凭证种类</span></td>
-				<td align="center" bgcolor="#00923F"><span class="STYLE2">凭证首号</span></td>
-				<td align="center" bgcolor="#00923F"><span class="STYLE2">凭证尾号</span></td>
+				<td align="center" bgcolor="#00923F"><span class="STYLE2">入库凭证种类</span></td>
+				<td align="center" bgcolor="#00923F"><span class="STYLE2">入库凭证首号</span></td>
+				<td align="center" bgcolor="#00923F"><span class="STYLE2">入库凭证尾号</span></td>
 				<td align="center" bgcolor="#00923F"><span class="STYLE2">操作</span></td>
 			</tr>
 		</thead>
@@ -105,10 +96,7 @@ function deltr(opp) {
 				<td height="30" align="center">
 					<input type="text" name="NO" size="2" value="1" /></td>
 				<td align="center">
-					<select name="pzzl" id="pzzl">
-            <option value="101" selected="selected">存折</option>
-            <option value="102">金牛卡</option>
-          </select></td>
+					<select name="pzzl" class="pzzl"></select></td>
 				<td align="center">
 					<input type="text" name="pzhd1" /></td>
 				<td align="center">
@@ -125,9 +113,9 @@ function deltr(opp) {
     <td width="84" height="27" align="center"><input name="button" type="button" id="btn_addtr" value="增加凭证" /></td>
   </tr>
   <tr>
-    <td height="89" width="31" align="center" valign="middle">
+    <td height="89" width="31" align="center" valign="middle"><strong>
       信息<br />
-      录入</td>
+      录入</strong></td>
     <td height="89" colspan="2" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
         <thead>
           <tr>
@@ -155,4 +143,25 @@ function deltr(opp) {
 </table>
 </form>
 </body>
+<script type="text/javascript"> 
+window.onload=pz_search();
+function pz_search(){ 
+	$(document).ready(function () {
+		  $.ajax({
+		    timeout: 3000,
+		    async: false,
+		    type: "POST",
+		    url: "loadpzServlet",
+		    dataType: "json",
+		    success: function (data) {
+		    $(".pzzl").empty(); 
+			$(".pzzl").append("<option>----请选择凭证种类----</option>");
+		    $.each(data.pzzl,function(i,iteam){
+				$(".pzzl").append("<option value="+i+">" +i+"--"+iteam + "</option>");
+		      });
+		    }
+		  });
+		});
+} 
+</script> 
 </html>
