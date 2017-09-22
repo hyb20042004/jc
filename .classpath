@@ -20,7 +20,8 @@
 	<classpathentry kind="lib" path="G:/java/jc/WebContent/WEB-INF/lib/commons-lang-2.5.jar"/>
 	<classpathentry kind="lib" path="G:/java/jc/WebContent/WEB-INF/lib/commons-collections-3.1.jar"/>
 	<classpathentry kind="lib" path="G:/java/jc/WebContent/WEB-INF/lib/commons-beanutils-1.7.0.jar"/>
-	<classpathentry kind="lib" path="G:/java/jc/WebContent/WEB-INF/lib/jacob.jar"/>
-	<classpathentry kind="lib" path="G:/java/jc/WebContent/WEB-INF/lib/jacob-1.18-x64.dll"/>
+	<classpathentry kind="lib" path="C:/Users/hxp/Downloads/jacob-1.18 (1)/jacob-1.18/jacob.jar"/>
+	<classpathentry kind="lib" path="C:/Users/hxp/Downloads/jna-3.1.0.jar/jna-3.1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/hxp/Downloads/JNative.jar"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>
