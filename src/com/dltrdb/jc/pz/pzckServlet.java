@@ -92,8 +92,8 @@ public class pzckServlet extends HttpServlet {
 			psmt=conn.prepareStatement("select pz_hd,pz_hde from pz_kc where pz_hd=? and pz_num=?");
 			System.out.println("-------查询输入号段是否存在于库存表：查询开始------");
 			System.out.println("传入参数数量："+pz_hd1.length+"其中有空参数1个");
-			System.out.println(pz_hd1[1]=="");
-			for(int i=1;i<pz_hd1.length;i++) {
+			System.out.println(pz_hd1[0]=="");
+			for(int i=0;i<pz_hd1.length;i++) {
 				hd1[i]=Long.valueOf(pz_hd1[i]);
 				pz[i]=Integer.valueOf(pzzl[i]);
 				System.out.println("数据查询循环次数："+i+"----数据库查询首号段："+hd1[i]+"----数据库查询凭证种类："+pz[i]);
@@ -106,9 +106,9 @@ public class pzckServlet extends HttpServlet {
 			}
 			}
 			
-			System.out.println("数据库查询存在号段合计数："+js+"--传入参数数量减1："+(pz_hd1.length-1));
+			System.out.println("数据库查询存在号段合计数："+js+"--传入参数数量："+(pz_hd1.length));
 			
-		if(js!=(pz_hd1.length-1)) {
+		if(js!=(pz_hd1.length)) {
 			System.out.println("提交号段全部或部分不存在于库存表：查询结束");
 			System.out.println("---------------------");
 			response.sendRedirect("pzck.jsp?action=0");
@@ -119,7 +119,7 @@ public class pzckServlet extends HttpServlet {
 			conn.setAutoCommit(false);
 			//if(!result1) {
 				psmt=conn.prepareStatement("insert into pz_ck(pz_num,pz_hd,pz_count,lqr,zy,cksj,pz_hde,lqjg,tag) values(?,?,?,?,?,?,?,?,?)");
-				for(int i=1;i<pzzl.length;i++) {
+				for(int i=0;i<pzzl.length;i++) {
 				hd1[i]=Long.valueOf(pz_hd1[i]);
 				hd2[i]=Long.valueOf(pz_hd2[i]);
 				Integer pz_count=((int)(hd2[i]-hd1[i]))+1;	
@@ -140,7 +140,7 @@ public class pzckServlet extends HttpServlet {
 				System.out.println("1，添加凭证出库数据表完成！");
 				//3.更新凭证库存表
 				psmt=conn.prepareStatement("update pz_kc set pz_hd=? where pz_hd=? and pz_num=?");
-				for(int i=1;i<pzzl.length;i++) {
+				for(int i=0;i<pzzl.length;i++) {
 					hd1[i]=Long.valueOf(pz_hd1[i]);
 					hd2[i]=Long.valueOf(pz_hd2[i]);
 				/*if(name>pz_hd2) {
