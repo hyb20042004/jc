@@ -3,52 +3,49 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>无标题文档</title>
+<title>达拉特旗信用联社——凭证出库</title>
 <style type="text/css">
 <!--
 .tr {
 	margin-left: auto;
 	margin-right: auto;
 }
-.STYLE2 {
-	color: #FFFFFF;
-	font-weight: bold;
+.STYLE4 {color: #FFFFFF; font-weight: bold; }
+.singleTotal{
+	background-color: #CCCCCC;
+	border: 1px solid #000000;
 }
 -->
 </style>
+<%
+String action=null;
+ action=request.getParameter("action"); %>
 <script language="javascript" src="js/jquery1.7.js"></script>
-<script language="javascript">
-$(function () {
-	var show_count = 20;   //要显示的条数
-	var count = 1;    //递增的开始值，这里是你的ID
-	$("#btn_addtr").click(function () {
-
-		var length = $("#dynamicTable tbody tr").length;
-		//alert(length);
-		if (length < show_count)    //点击时候，如果当前的数字小于递增结束的条件
-		{
-			$("#tab11 tbody tr").clone().appendTo("#dynamicTable tbody");   //在表格后面添加一行
-			changeIndex();//更新行号
+<script language="javascript" src="js/jquery-1.12.3.min.js"></script>
+<script language="javascript" src="js/addel.jquery.js"></script>
+<script>
+$(document).ready(function () {
+	$('.addel').addel({
+		classes: {
+			target: 'target'
+		},
+		animation: {
+			duration: 300
+		}
+	}).on('addel:delete', function (event) {
+		if (false) {
+			event.preventDefault();
 		}
 	});
-
-
 });
-function changeIndex() {
-	var i = 1;
-	$("#dynamicTable tbody tr").each(function () { //循环tab tbody下的tr
-		$(this).find("input[name='NO']").val(i++);//更新行号
-	});
-}
-
-function deltr(opp) {
-	var length = $("#dynamicTable tbody tr").length;
-	//alert(length);
-	if (length <= 1) {
-		alert("至少保留一行");
-	} else {
-		$(opp).parent().parent().remove();//移除当前行
-		changeIndex();
+</script>
+<script language="javascript">
+function p_alert(){
+	var action=<%=action%>;
+	if(action=="1"){
+		alert("凭证入库成功");
+	}else if(action=="0"){
+		alert("所输入凭证号段库存表中存在，不能入库！");
 	}
 }
 </script>
@@ -56,96 +53,153 @@ function deltr(opp) {
 </head>
 
 <body>
-<form action="pzrkServlet" method="post">
-<table width="100%" border="1" align="center" cellpadding="1" cellspacing="1" bordercolor="#00923F">
-  <tr>
-    <td width="31" height="88" rowspan="2" align="center" valign="middle"><strong>
+
+<form action="pzrkServlet" method="post" name="pzck" id="pzck" onsubmit="return dosubmit()">
+<div class="container"><div class="addel">	
+ <table width="100%" border="2" cellpadding="2" cellspacing="2" bordercolor="#000000">
+ 	<tr>
+	  <td width="4%" rowspan="2" align="center"><p><strong>
       凭证<br />
       录入<br />          
-      </strong></td>
-    <td height="66" colspan="2" align="center" valign="top">
-	<table id="tab11" style="display: none" width="100%">
-		<tbody>
-			<tr>
-				<td height="30" align="center">
-					<input type="text" name="NO" size="2" value="1" /></td>
-				<td align="center">
-					<select name="pzzl" class="pzzl"></select></td>
-				<td align="center">
-					<input type="text" name="pzhd1"/></td>
-				<td align="center">
-					<input type="text" name="pzhd2"/></td>
-				<td>
-					<input type="button" id="Button1" onClick="deltr(this)" value="删行">				</td>
-			</tr>
-		</tbody>
-	</table>
-
-	<table id="dynamicTable" width="100%" border="0" cellspacing="0" cellpadding="0">
-		<thead>
-			<tr>
-				<td height="30" align="center" bgcolor="#00923F"><span class="STYLE2">ID</span></td>
-				<td align="center" bgcolor="#00923F"><span class="STYLE2">入库凭证种类</span></td>
-				<td align="center" bgcolor="#00923F"><span class="STYLE2">入库凭证首号</span></td>
-				<td align="center" bgcolor="#00923F"><span class="STYLE2">入库凭证尾号</span></td>
-				<td align="center" bgcolor="#00923F"><span class="STYLE2">操作</span></td>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td height="30" align="center">
-					<input type="text" name="NO" size="2" value="1" /></td>
-				<td align="center">
-					<select name="pzzl" class="pzzl"></select></td>
-				<td align="center">
-					<input type="text" name="pzhd1" /></td>
-				<td align="center">
-					<input type="text" name="pzhd2" /></td>
-				<td>
-					<input type="button" id="Button2" onClick="deltr(this)" value="删行">				</td>
-			</tr>
-		</tbody>
-	</table></td>
-    </tr>
-  
-  <tr>
-    <td width="553" height="27" align="center">&nbsp;</td>
-    <td width="84" height="27" align="center"><input name="button" type="button" id="btn_addtr" value="增加凭证" /></td>
-  </tr>
-  <tr>
-    <td height="89" width="31" align="center" valign="middle"><strong>
+      </strong></p></td>
+		<td height="80" colspan="2" valign="top">		
+  			<table width="100%" border="0">
+                              <tr>
+                                <td height="32" align="center" bgcolor="#00923F"><span class="STYLE4">入库凭证种类</span></td>
+                                <td align="center" bgcolor="#00923F"><span class="STYLE4">入库凭证数量</span></td>
+                                <td align="center" bgcolor="#00923F"><span class="STYLE4">入库凭证首号</span></td>
+                                <td align="center" bgcolor="#00923F"><span class="STYLE4">入库凭证尾号</span></td>
+                                <td align="center" bgcolor="#00923F"><span class="STYLE4">操作</span></td>
+                              </tr>
+		 	 </table>
+			<div class="form-group target"> 
+			 <div class="input-group">
+                 <table width="100%" id="tb">
+                       <tr>
+                          <td align="center"><select name="pzzl" class="pzzl"></select></td>
+                          <td align="center"><input type="text" name="pznum" class="input" /></td>
+                          <td align="center"><input type="text" name="pzhd1" class="input" onblur="updateSum(),pz_search()"/></td>
+                          <td align="center"><input type="text" name="pzhd2" class="singleTotal" readonly/></td>
+                          <td align="center"><button type="button" class="btn btn-danger addel-delete">删行</button></td>
+                       </tr>
+				</table>
+			</div> 
+		 </div>	    
+	</td>
+ 	</tr>
+ 	<tr>
+ 	  <td width="91%" align="center"><div id="result" height="150" width="200"></div></td>
+ 	  <td width="100" align="center"><button type="button" class="btn btn-success btn-block addel-add">增加凭证</button>	 </td>
+ 	</tr>
+	<tr>
+        <td height="31" align="center"><p><strong>
       信息<br />
-      录入</strong></td>
-    <td height="89" colspan="2" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-        <thead>
-          <tr>
-            <td height="30" align="center" bgcolor="#00923F"><span class="STYLE2">经办人</span></td>
-            <td align="center" bgcolor="#00923F"><span class="STYLE2">摘要</span></td>
+      录入<br />          
+      </strong></p></td>
+        <td colspan="2" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <thead>
+            <tr>
+              <td height="30" align="center" bgcolor="#00923F"><span class="STYLE4">经办人</span></td>
+              <td align="center" bgcolor="#00923F"><span class="STYLE4">摘要</span></td>
             </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td height="30" align="center"><select name="jbr" id="jbr">
-            <option value="姬宝荣" selected="selected">姬宝荣</option>
-            <option value="裴娟">裴娟</option>
-          </select></td>
-            <td align="center"><input name="zy" type="text" id="zy" size="40" /></td>
+          </thead>
+          <tbody>
+            <tr>
+              <td height="30" align="center"><select name="jbr" id="lqjg" value="">
+              <option value="<%=session.getAttribute("gynum").toString() %>"><%=session.getAttribute("username").toString() %></option>
+              </select></td>
+
+              <td align="center"><input name="zy" type="text" id="zy" /></td>
             </tr>
-        </tbody>
-      </table>     </td>
-  </tr>
-  <tr>
-    <td colspan="3" align="center"><label>
-      <input type="submit" name="Submit" value="提交" />
-      <input type="reset" name="Submit2" value="重置" />
-    </label></td>
-  </tr>
+          </tbody>
+        </table></td>
+	</tr>
+	<tr>
+	  <td height="27" colspan="3" align="center"><input type="button" name="Input" value="提交" onclick="pz_submit()"/>
+        <input type="reset" name="Input" value="重置" /></td>
+	  </tr>
 </table>
+ 
+</div></div>
 </form>
 </body>
 <script type="text/javascript"> 
-window.onload=pz_search();
+var isCommitted = false;
+window.onload=pz_list(),p_alert()
+function dosubmit(){
+	
+    if(isCommitted==false){
+		isCommitted = true;//提交表单后，将表单是否已经提交标识设置为true
+		return true;//返回true让表单正常提交
+	}else{
+		return false;//返回false那么表单将不提交
+	}
+}
+
+    function updateSum() {
+       var totalSum = 0;
+        $("td input.singleTotal").each(function() {
+        	  var p = $(this).parent().parent();
+             var sum = 0;
+             sum = parseInt(p.find("input:eq(0)").val()) + parseInt(p.find("input:eq(1)").val()); 
+           // alert($(this).val(sum));
+            $(this).val(sum-1)
+           //totalSum += sum;
+        });
+      //$("td input#total").val(totalSum);
+    }
+
+function pz_submit(){
+	var count=0;
+	var count1=0;
+$('input').each(function(){
+	if($(this).val()==""){
+		count=count+1;
+	}
+	
+});
+$('select').each(function(){
+	if($(this).val()==""){
+		count1=count1+1;
+	}
+	
+});//取框中的用户名 
+if((count-3)>0 || (count1-1)>0){
+	alert("提交表单文本框存在"+(count)+"处空值，下拉框存在"+(count1)+"处未选择，请检查！");
+	}else{
+ 	$("#pzck").submit();
+}
+}
 function pz_search(){ 
+var pzhd1="";
+	var pzhd2="";
+	var pzzl1="";//函数 login(); 
+	$("#result").empty();	
+$('input[name="pzhd1"]').each(function(){
+	pzhd1=$(this).val();
+});//取框中的用户名 
+$('select[name="pzzl"]').each(function(){
+	pzzl1=$(this).val();
+});
+$('input[name="pzhd2"]').each(function(){
+	pzhd2=$(this).val();
+});
+$.ajax({ //一个Ajax过程 
+type: "post", //以post方式与后台沟通 
+url : "pzrkcheckServlet", //与此servlet页面沟通 
+data: {
+	pzhd : pzhd1,
+	pzhde : pzhd2,
+	pzzl: pzzl1
+}, //发给servlet的数据有两项，分别是上面传来的pzhd1和pzhd2
+success: function(data){//如果调用成功
+$('#result').html(data); 
+//servlet中的返回值显示在预定义的result定位符位置 
+} 
+}); 
+} 
+
+function pz_list(){ 
 	$(document).ready(function () {
 		  $.ajax({
 		    timeout: 3000,
@@ -155,7 +209,7 @@ function pz_search(){
 		    dataType: "json",
 		    success: function (data) {
 		    $(".pzzl").empty(); 
-			$(".pzzl").append("<option>----请选择凭证种类----</option>");
+			$(".pzzl").append("<option value=''>----请选择凭证种类----</option>");
 		    $.each(data.pzzl,function(i,iteam){
 				$(".pzzl").append("<option value="+i+">" +i+"--"+iteam + "</option>");
 		      });

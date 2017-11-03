@@ -11,9 +11,14 @@
 	margin-right: auto;
 }
 .STYLE4 {color: #FFFFFF; font-weight: bold; }
+.singleTotal{
+	background-color: #CCCCCC;
+	border: 1px solid #000000;
+}
 -->
 </style>
-<%String action=null;
+<%
+String action=null;
  action=request.getParameter("action"); %>
 <script language="javascript" src="js/jquery1.7.js"></script>
 <script language="javascript" src="js/jquery-1.12.3.min.js"></script>
@@ -39,17 +44,19 @@ function p_alert(){
 	var action=<%=action%>;
 	if(action=="1"){
 		alert("凭证出库成功");
+		window.parent.frames["leftFrame"].location.reload();
 	}else if(action=="0"){
 		alert("所输入凭证号段全部或部分未在库存表中，不能出库！");
 	}
 }
+
 </script>
 
 </head>
 
 <body>
 
-<form action="pzckServlet" method="post" name="pzck" id="pzck">
+<form action="pzckServlet" method="post" name="pzck" id="pzck" onsubmit="return dosubmit()">
 <div class="container"><div class="addel">	
  <table width="100%" border="2" cellpadding="2" cellspacing="2" bordercolor="#000000">
  	<tr>
@@ -74,7 +81,7 @@ function p_alert(){
                           <td align="center"><select name="pzzl" class="pzzl"></select></td>
                           <td align="center"><input type="text" name="pznum" class="input" /></td>
                           <td align="center"><input type="text" name="pzhd1" class="input" onblur="updateSum(),pz_search()"/></td>
-                          <td align="center"><input name="pzhd2" type="text" class="singleTotal" disabled="disabled" /></td>
+                          <td align="center"><input type="text" name="pzhd2" class="singleTotal" readonly/></td>
                           <td align="center"><button type="button" class="btn btn-danger addel-delete">删行</button></td>
                        </tr>
 				</table>
@@ -91,11 +98,12 @@ function p_alert(){
       信息<br />
       录入<br />          
       </strong></p></td>
-        <td colspan="2" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <td colspan="2" valign="top"><table width="100%" border="0" cellspacing="2" cellpadding="2">
           <thead>
             <tr>
               <td height="30" align="center" bgcolor="#00923F"><span class="STYLE4">领取机构</span></td>
               <td align="center" bgcolor="#00923F"><span class="STYLE4">领取人</span></td>
+              <td align="center" bgcolor="#00923F"><span class="STYLE4">经办人</span></td>
               <td align="center" bgcolor="#00923F"><span class="STYLE4">摘要</span></td>
             </tr>
           </thead>
@@ -104,6 +112,7 @@ function p_alert(){
               <td height="30" align="center"><select name="lqjg" id="lqjg" value="">
               </select></td>
               <td align="center"><input name="lqr" type="text" id="lqr" /></td>
+              <td align="center"><select name="jbr" id="jbr" value=""><option value="<%=session.getAttribute("gynum").toString() %>"><%=session.getAttribute("username").toString() %></option></select></td>
               <td align="center"><input name="zy" type="text" id="zy" /></td>
             </tr>
           </tbody>
@@ -119,7 +128,17 @@ function p_alert(){
 </form>
 </body>
 <script type="text/javascript"> 
+var isCommitted = false;
 window.onload=pz_list(),p_alert()
+function dosubmit(){
+	
+    if(isCommitted==false){
+		isCommitted = true;//提交表单后，将表单是否已经提交标识设置为true
+		return true;//返回true让表单正常提交
+	}else{
+		return false;//返回false那么表单将不提交
+	}
+}
 
     function updateSum() {
        var totalSum = 0;
